@@ -1,0 +1,159 @@
+[
+  {
+    "id": "5aba7acc1085bc50",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "47ab97baaa4afa79",
+    "type": "http request",
+    "z": "5aba7acc1085bc50",
+    "name": "",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://api.open-meteo.com/v1/forecast?latitude=-23.5505&longitude=-46.6333&current=temperature_2m",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 310,
+    "y": 260,
+    "wires": [
+      [
+        "6fe99e3f95f10750",
+        "22d6520a401bfb36"
+      ]
+    ]
+  },
+  {
+    "id": "c108c5818d2af819",
+    "type": "inject",
+    "z": "5aba7acc1085bc50",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 150,
+    "y": 200,
+    "wires": [
+      [
+        "47ab97baaa4afa79"
+      ]
+    ]
+  },
+  {
+    "id": "c6b53459c63e6d92",
+    "type": "debug",
+    "z": "5aba7acc1085bc50",
+    "name": "debug 1",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 700,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "6fe99e3f95f10750",
+    "type": "function",
+    "z": "5aba7acc1085bc50",
+    "name": "function 1",
+    "func": "let temp = msg.payload.current.temperature_2m;\nlet time = msg.payload.current.time;\n\nmsg.payload = `Temperatura Atual: ${temp} ºC\\nHora: ${time}`;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 500,
+    "y": 180,
+    "wires": [
+      [
+        "c6b53459c63e6d92",
+        "b222750c4203bd98"
+      ]
+    ]
+  },
+  {
+    "id": "b222750c4203bd98",
+    "type": "ui_text",
+    "z": "5aba7acc1085bc50",
+    "group": "e4d74b3614611acc",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "name": "",
+    "label": "",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "className": "",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#000000",
+    "x": 690,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "22d6520a401bfb36",
+    "type": "debug",
+    "z": "5aba7acc1085bc50",
+    "name": "debug 2",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 500,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "e4d74b3614611acc",
+    "type": "ui_group",
+    "name": "Temperatura Atual",
+    "tab": "96034afe973e565e",
+    "order": 1,
+    "disp": true,
+    "width": 6,
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "96034afe973e565e",
+    "type": "ui_tab",
+    "name": "Home",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  }
+]
